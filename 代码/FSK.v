@@ -20,6 +20,8 @@ output reg dout;
 parameter count_max = 25;
 reg [8:0] count;
 reg [1:0] count_clear; // count判断并清零
+
+// 生成清零判断脉冲
 always@(posedge clk or negedge rst) begin
   if(~rst) begin
     count_clear <= 2'b00;
@@ -50,6 +52,7 @@ always@(posedge clk or negedge rst) begin
   endcase
 end
 
+// 根据1bit周期内FSK信号的计数来判断其频率
 always @(posedge din or negedge rst or posedge count_clear[0]) begin
   if(~rst) begin
     count <= 0;
